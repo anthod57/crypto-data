@@ -34,6 +34,7 @@ export default defineComponent({
 
     async created() {
         // Fetch data when the component is rendered
+        this.priceHistory = await this.getPriceHistory(this.symbol, Timeframe.Daily, 50);
         await this.updateData();
 
         // Set a timer to update data each 5s
@@ -72,15 +73,18 @@ export default defineComponent({
         },
 
         async updateData() {
-            this.priceHistory = await this.getPriceHistory(this.symbol, Timeframe.Daily, 50);
-            this.price = +Number.parseFloat(this.priceHistory[this.priceHistory.length - 1][4]).toFixed(2);
-            this.variation = this.dayVariation(this.price, this.priceHistory[this.priceHistory.length - 2][4]);
+            const data = await this.getPriceHistory(this.symbol, Timeframe.Daily, 2);
+            this.price = +Number.parseFloat(data[data.length - 1][4]).toFixed(2);
+            this.variation = this.dayVariation(this.price, data[data.length - 2][4]);
             this.updateChart();
         },
 
         updateChart() {
             let labels : string[] = this.priceHistory.map(x => { return (moment(x[0]).format('l')) });
             let data : number[] = this.priceHistory.map(x => { return Number.parseFloat(x[4]) });
+
+            // Update current price
+            data[data.length - 1] = this.price;
 
             this.chartData = {
                 labels: labels,
@@ -114,8 +118,8 @@ export default defineComponent({
         min-height: 300px;
         background-color: #2d254a;
         border-radius: 5px;
-        margin: auto;
         padding: 1rem;
+        margin: auto;
 
         .header {
             display: flex;

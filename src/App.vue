@@ -4,6 +4,8 @@
   
   <main>
       <CoinData symbol="BTCUSDT" name="Bitcoin" />
+      <CoinData symbol="ETHUSDT" name="Ethereum" />
+      <CoinData symbol="BNBUSDT" name="Binance-Coin" />
   </main>
 
 </template>
@@ -23,5 +25,5 @@ export default {
 </script>
 
 <style lang="scss">
-  @import './styles/base.css';
+  @import './styles/base.scss';
 </style>
