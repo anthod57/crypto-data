@@ -94,6 +94,7 @@ export default defineComponent({
             }
         },
 
+        // Calculate price variation based on current price and yesterday close price
         dayVariation(currentPrice : number, yesterdayPrice : number) : number {
             return (currentPrice - yesterdayPrice) / yesterdayPrice * 100;
         }

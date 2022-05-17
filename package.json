@@ -11,6 +11,7 @@
   "dependencies": {
     "chart.js": "^3.7.1",
     "moment": "^2.29.3",
+    "sass": "^1.51.0",
     "vue": "^3.2.33",
     "vue-chartjs": "^4.1.0"
   },
